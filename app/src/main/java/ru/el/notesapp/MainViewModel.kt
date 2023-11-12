@@ -39,6 +39,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun readAllNotes() = REPOSITORY.readAll
+    //////comment
 }
 
 class MainViewModelFactory(private val application: Application) : ViewModelProvider.Factory
