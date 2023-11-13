@@ -17,7 +17,7 @@ abstract class AppRoomDatabase: RoomDatabase() {
         {
             return if (INSTANCE == null)
             {
-                INSTANCE = Room.databaseBuilder(context,AppRoomDatabase::class.java,"notes_database").build()
+                INSTANCE = Room.databaseBuilder(context,AppRoomDatabase::class.java,NOTE_DATABASE).build()
                 INSTANCE as AppRoomDatabase
             }else INSTANCE as AppRoomDatabase
         }

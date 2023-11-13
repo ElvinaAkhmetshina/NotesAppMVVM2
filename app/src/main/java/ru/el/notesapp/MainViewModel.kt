@@ -1,8 +1,14 @@
 package ru.el.notesapp
 
 import android.app.Application
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import ru.el.notesapp.database.room.AppRoomDatabase
 import ru.el.notesapp.database.room.repository.RoomRepository
 import ru.el.notesapp.utils.REPOSITORY
@@ -16,7 +22,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun initDatabase(type: String, onSuccess: () -> Unit)
     {
 
-        Lod.d("checkData", "MainViewModel initDatabase with type: $type")
+        Log.d("checkData", "MainViewModel initDatabase with type: $type")
         when(type)
         {
             TYPE_ROOM->{val dao = AppRoomDatabase.getInstance(context = context).getRoomDao()}
@@ -30,6 +36,37 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     {
         viewModelScope.launch(Dispatchers.IO){
             REPOSITORY.create(note = note){
+                viewModelScope.launch(Dispatchers.Main)
+                {
+                    onSuccess()
+                }
+            }
+        }
+    }
+
+
+
+    fun updateNote(note: Note, onSuccess: () -> Unit)
+    {
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            REPOSITORY.update(note = note)
+            {
+                viewModelScope.launch(Dispatchers.Main)
+                {
+                    OnSuccess()
+                }
+            }
+        }
+    }
+
+
+    fun deleteNote(note: Note, onSuccess: () -> Unit)
+    {
+        viewModelScope.launch(Dispatchers.IO)
+        {
+            REPOSITORY.delete(note = note)
+            {
                 viewModelScope.launch(Dispatchers.Main)
                 {
                     onSuccess()

@@ -55,7 +55,7 @@ modifier = Modifier
 .fillMaxWidth()
 .padding(vertical = 8.dp, horizontal =24.dp)
 .clickable {
-    navController.navidate(NavRroute.Note.route)
+    navController.navidate(NavRroute.Note.route+"/${note.id}")
 },
 elevation = 6.dp
 )
