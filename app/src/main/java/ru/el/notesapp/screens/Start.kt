@@ -1,10 +1,14 @@
 package ru.el.notesapp.screens
 
 
+import android.annotation.SuppressLint
 import android.app.Application
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.Button
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,16 +18,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.el.notesapp.MainViewModel
 import ru.el.notesapp.MainViewModelFactory
+import ru.el.notesapp.navigation.NavRoute
 import ru.el.notesapp.ui.theme.NotesAppTheme
 import ru.el.notesapp.utils.TYPE_FIREBASE
 import ru.el.notesapp.utils.TYPE_ROOM
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun StartScreen(navController: NavHostController)
+fun StartScreen(navController: NavHostController, viewModel: MainViewModel)
 {
 
     Scaffold(
@@ -71,6 +78,6 @@ fun prevStartScreen(){
         val context = LocalContext.current
         val mViewModel: MainViewModel = viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
         val notes = mViewModel.readTest.observeAsState(listOf()).value
-        StartScreen(navController = rememberNavController())
+        StartScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }

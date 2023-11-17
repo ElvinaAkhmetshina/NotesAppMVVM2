@@ -24,6 +24,11 @@ object Constants {
         const val FIREBASE_SATABASE = "notes_table"
         const val ID= "id"
         const val NONE= "none"
+        const val EMPTY = ""
+        const val EDIT_NOTE = ""
+        const val UPDATE_NOTE = ""
+        const val UPDATE = ""
+        const val NAV_BACK = ""
     }
 
     object Screens{

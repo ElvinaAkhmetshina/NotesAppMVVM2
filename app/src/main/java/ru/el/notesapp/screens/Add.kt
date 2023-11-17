@@ -1,10 +1,12 @@
 package ru.el.notesapp.screens
 
+import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
@@ -19,13 +21,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import ru.el.notesapp.MainViewModel
 import ru.el.notesapp.MainViewModelFactory
+import ru.el.notesapp.model.Note
+import ru.el.notesapp.navigation.NavRoute
 import ru.el.notesapp.ui.theme.NotesAppTheme
 
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun AddScreen(navController: NavHostController, viewModel: MainViewModel){
     var title by remember{mutableStateOf("")}
@@ -72,7 +80,7 @@ fun prevAddScreen(){
     NotesAppTheme {
         val context = LocalContext.current
         val mViewModel: MainViewModel = viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-        val notes = mViewModel.readTest.observeAsState(listOf()).value
+        val notes = mViewModel.readText().observeAsState(listOf()).value
         AddScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }
